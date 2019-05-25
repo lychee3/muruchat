@@ -11,6 +11,7 @@ app.get('/' , function(req, res){
 io.on('connection',function(socket){
     socket.on('message',function(msg){
         console.log('message: ' + msg);
+        io.emit('message', msg);
     });
 });
 
