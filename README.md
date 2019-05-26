@@ -2,6 +2,18 @@
 
 ## MiniShift環境へのデプロイ手順
 
+### MySQL(Ephemeral)のテンプレート登録
+
+```
+$ oc create -f https://raw.githubusercontent.com/openshift/origin/v3.10.0/examples/db-templates/mysql-ephemeral-template.json
+```
+
+### MySQL(Ephemeral)のアプリ起動
+
+```
+$ oc new-app mysql-ephemeral --name=muru-mysql -p MYSQL_USER=koyamaru -p MYSQL_PASSWORD=password -p MYSQL_DATABASE=muruchat -p MYSQL_VERSION=5.7 -p DATABASE_SERVICE_NAME=muru-mysql
+```
+
 ### muruchatのテンプレート登録
 
 ```
@@ -30,4 +42,17 @@ $ oc delete all --selector app=muruchat
 
 ```
 $ oc delete template muruchat
+```
+
+### MySQL(Ephemeral)のアプリ削除
+
+```
+$ oc delete all --selector app=muru-mysql
+$ oc delete secrets/muru-mysql
+```
+
+### MySQL(Ephemeral)のテンプレート削除
+
+```
+$ oc delete template mysql-ephemeral
 ```
