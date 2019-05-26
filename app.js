@@ -5,7 +5,7 @@ var http = require('http').Server(app);
 const io = require('socket.io')(http);
 const PORT = process.env.PORT || 8080;
 
-const connection = mysql.createConnection({
+let conn = mysql.createConnection({
     host: process.env.MURU_MYSQL_SERVICE_HOST,
     port: process.env.MURU_MYSQL_SERVICE_PORT,
     user: process.env.DATABASE_USER,
@@ -21,9 +21,10 @@ app.get('/' , function(req, res){
 io.on('connection',function(socket){
     socket.on('message',function(msg){
         console.log('message: ' + msg);
-        const sql = 'insert into muruchat.message(message) values(?)';
+        console.log('conn: ' + conn);
+        const sql = 'INSERT INTO muruchat.message(message) values(?)';
         const data =[msg];
-        connection.query(sql, data);
+        conn.query(sql, data);
         console.log('DB pushed');
 
         io.emit('message', msg);
