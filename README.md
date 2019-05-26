@@ -1,9 +1,33 @@
 # muruchat
 
-## OpenShiftでデプロイする方法
+## MiniShift環境へのデプロイ手順
 
-$ oc new-app https://github.com/lychee3/muruchat
+### muruchatのテンプレート登録
 
-$ oc expose svc/muruchat
+```
+$ oc create -f https://raw.githubusercontent.com/lychee3/muruchat/master/openshift/muruchat.yaml
+```
 
-http://muruchat-myproject.192.168.64.4.nip.io
+### muruchatのアプリ起動
+
+```
+$ oc new-app muruchat
+```
+
+### ブラウザでアクセス確認
+
+http://muruchat-myproject.192.168.64.4.nip.io 
+
+## アンデプロイ手順
+
+### muruchatのアプリ削除
+
+```
+$ oc delete all --selector app=muruchat
+```
+
+### muruchatのテンプレート削除
+
+```
+$ oc delete template muruchat
+```
