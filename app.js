@@ -5,14 +5,6 @@ var http = require('http').Server(app);
 const io = require('socket.io')(http);
 const PORT = process.env.PORT || 8080;
 
-let conn = mysql.createConnection({
-    host: process.env.MURU_MYSQL_SERVICE_HOST,
-    port: process.env.MURU_MYSQL_SERVICE_PORT,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE_NAME
-});
-console.log('connection created');
 
 app.get('/' , function(req, res){
     res.sendFile(__dirname+'/index.html');
@@ -21,10 +13,7 @@ app.get('/' , function(req, res){
 io.on('connection',function(socket){
     socket.on('message',function(msg){
         console.log('message: ' + msg);
-        console.log('conn: ' + conn);
-        const sql = 'INSERT INTO muruchat.message(message) values(?)';
-        const data =[msg];
-        conn.query(sql, data);
+        insertMessage(msg);
         console.log('DB pushed');
 
         io.emit('message', msg);
@@ -34,3 +23,32 @@ io.on('connection',function(socket){
 http.listen(PORT, function(){
     console.log('server listening. Port:' + PORT);
 });
+
+function insertMessage(msg) {
+    let conn;
+
+    let connection = mysql.createConnection({
+        host: process.env.MURU_MYSQL_SERVICE_HOST,
+        port: process.env.MURU_MYSQL_SERVICE_PORT,
+        user: process.env.DATABASE_USER,
+        password: process.env.DATABASE_PASSWORD,
+        database: process.env.DATABASE_NAME
+    }).then(function (connect) {
+        console.log('promise-mysql createConnection.');
+        conn = connect;
+        const sql = 'INSERT INTO muruchat.message SET ?';
+        const inserts = {message: msg};
+        const result = conn.query(sql, inserts);
+        console.log(result);
+        return result;
+    }).then(function (res) {
+        console.log(res);
+        conn.end();
+    }).catch(function(error) {
+        if (conn && conn.end) conn.end();
+        //logs out the error
+        console.log('catch error.');
+        console.log(error);
+    });
+    
+}
