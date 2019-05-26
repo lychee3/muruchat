@@ -67,6 +67,22 @@ objects:
             ports:
             - containerPort: 8080
               protocol: TCP
+            env:
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  key: database-user
+                  name: muru-mysql
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: database-password
+                  name: muru-mysql
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  key: database-name
+                  name: muru-mysql
       triggers:
       - type: ConfigChange
       - type: ImageChange
