@@ -2,6 +2,8 @@
 
 ## MiniShift環境へのデプロイ手順
 
+MySQL(Ephemeral)を起動させてから、muruchatを起動する。
+
 ### MySQL(Ephemeral)のテンプレート登録
 
 ```
@@ -31,6 +33,8 @@ $ oc new-app muruchat
 http://muruchat-myproject.192.168.64.4.nip.io 
 
 ## アンデプロイ手順
+
+デプロイの逆順で、muruchat→MySQLの順に削除する。
 
 ### muruchatのアプリ削除
 
