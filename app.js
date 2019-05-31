@@ -3,7 +3,6 @@ const app = express();
 const mysql = require('promise-mysql');
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-//const PORT = process.env.PORT || 8080;
 const PORT = process.env.PORT || 8080;
 
 app.get('/' , function(req, res){
