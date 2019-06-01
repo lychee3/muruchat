@@ -6,7 +6,7 @@ const io = require('socket.io')(http, {path: '/muruchat/socket.io'});
 const PORT = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
-
+    res.redirect(req.baseUri + '/muruchat');
 });
 
 app.get('/muruchat/' , (req, res) => {
@@ -36,7 +36,7 @@ function insertMessage(msg) {
         user: process.env.DATABASE_USER,
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_NAME
-    }).then(function (connect) {
+    }).then((connect) => {
         console.log('promise-mysql createConnection.');
         conn = connect;
         const sql = 'INSERT INTO muruchat.message SET ?';
@@ -44,10 +44,10 @@ function insertMessage(msg) {
         const result = conn.query(sql, inserts);
         console.log(result);
         return result;
-    }).then(function (res) {
+    }).then((res) => {
         console.log(res);
         conn.end();
-    }).catch(function(error) {
+    }).catch((error) => {
         if (conn && conn.end) conn.end();
         //logs out the error
         console.log('catch error.');
