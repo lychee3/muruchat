@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const mysql = require('promise-mysql');
 const http = require('http').Server(app);
-const io = require('socket.io')(http, {path: '/muruchat'});
+const io = require('socket.io')(http, {'transports': ['websocket', 'polling'], path: '/muruchat'});
 const PORT = process.env.PORT || 8080;
 
 app.get('/muruchat/' , function(req, res){
