@@ -5,12 +5,16 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http, {path: '/muruchat/socket.io'});
 const PORT = process.env.PORT || 8080;
 
-app.get('/muruchat/' , function(req, res){
+app.get('/', (req, res) => {
+
+});
+
+app.get('/muruchat/' , (req, res) => {
     res.sendFile(__dirname+'/index.html');
 });
 
-io.on('connection',function(socket){
-    socket.on('message',function(msg){
+io.on('connection', (socket) => {
+    socket.on('message',(msg) => {
         console.log('message: ' + msg);
         insertMessage(msg);
         console.log('DB pushed');
@@ -19,7 +23,7 @@ io.on('connection',function(socket){
     });
 });
 
-http.listen(PORT, function(){
+http.listen(PORT, () => {
     console.log('server listening. Port:' + PORT);
 });
 
