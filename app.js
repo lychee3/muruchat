@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const mysql = require('promise-mysql');
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {path: '/muruchat/socket.io'});
 const PORT = process.env.PORT || 8080;
 
 app.get('/' , function(req, res){
