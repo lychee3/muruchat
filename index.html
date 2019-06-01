@@ -3,7 +3,7 @@
 <head>
     <title>socket.io chat</title>
 <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>-->
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="/muruchat/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script> 
 </head>
 <body>
@@ -13,7 +13,7 @@
       <input id="input_msg" autocomplete="off" /><button>Send</button>
     </form>
   <script>
-      var socketio = io().connect('http://www2.murumoya.com',{path:'/muruchat/socket.io'});
+      var socketio = io();
       $(function(){
           $('#message_form').submit(function(){
             socketio.emit('message', $('#input_msg').val());
