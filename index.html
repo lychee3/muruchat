@@ -13,7 +13,7 @@
       <input id="input_msg" autocomplete="off" /><button>Send</button>
     </form>
   <script>
-      var socketio = io('/muruchat/');
+      var socketio = io('http://www2.murumoya.com/muruchat');
       $(function(){
           $('#message_form').submit(function(){
             socketio.emit('message', $('#input_msg').val());
