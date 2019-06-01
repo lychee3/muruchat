@@ -6,7 +6,7 @@ const io = require('socket.io')(http, {path: '/muruchat/socket.io'});
 const PORT = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
-    res.redirect(req.baseUri + '/muruchat');
+    res.redirect('/muruchat');
 });
 
 app.get('/muruchat/' , (req, res) => {
