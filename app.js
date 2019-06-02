@@ -14,9 +14,10 @@ app.get('/muruchat/' , (req, res) => {
 });
 
 io.on('connection', (socket) => {
+    const address = socket.handshake.address;
     socket.on('message',(msg) => {
         console.log('message: ' + msg);
-        insertMessage(msg);
+        insertMessage(msg + '(' + address + ')');
         console.log('DB pushed');
 
         io.emit('message', msg);
