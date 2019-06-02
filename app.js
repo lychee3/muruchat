@@ -14,7 +14,8 @@ app.get('/muruchat/' , (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    const address = socket.handshake.address;
+//    const address = socket.handshake.address;
+    const address = socket.request.connection.remoteAddress;
     socket.on('message',(msg) => {
         console.log('message: ' + msg);
         insertMessage(msg + '(' + address + ')');
