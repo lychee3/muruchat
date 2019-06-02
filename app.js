@@ -20,7 +20,7 @@ io.on('connection', (socket) => {
         insertMessage(msg + '(' + address + ')');
         console.log('DB pushed');
 
-        io.emit('message', msg);
+        io.emit('message', msg + '(' + address + ')');
     });
 });
 
