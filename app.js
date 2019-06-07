@@ -5,8 +5,8 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http, {path: '/muruchat/socket.io'});
 const PORT = process.env.PORT || 8080;
 
-app.use('/muruchat', express.static(__dirname + '/css'));
-app.use('/muruchat', express.static(__dirname + '/js'));
+app.use('/muruchat', express.static('css'));
+app.use('/muruchat', express.static('js'));
 
 app.get('/', (req, res) => {
     res.redirect('/muruchat');
