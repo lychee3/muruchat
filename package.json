@@ -1,6 +1,6 @@
 {
     "scripts": {
-      "start": "node app.js"
+      "start": "node muruchat/app.js"
     },
     "dependencies": {
       "ejs": "^2.6.1",
