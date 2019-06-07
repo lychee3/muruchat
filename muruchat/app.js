@@ -7,8 +7,8 @@ const PORT = process.env.PORT || 8080;
 
 //app.use('/static', express.static('/muruchat/css'));
 //app.use('/static', express.static('/muruchat/js'));
-app.use(express.static('css'));
-app.use(express.static('js'));
+app.use('/static', express.static(__dirname + 'css'));
+app.use('/static', express.static(__dirname + 'js'));
 
 app.get('/', (req, res) => {
     res.redirect('/muruchat');
