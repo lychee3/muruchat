@@ -5,10 +5,10 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http, {path: '/muruchat/socket.io'});
 const PORT = process.env.PORT || 8080;
 
-//app.use('/static', express.static('/muruchat/css'));
-//app.use('/static', express.static('/muruchat/js'));
-app.use('/static', express.static(__dirname + 'css'));
-app.use('/static', express.static(__dirname + 'js'));
+app.use('/static', express.static('/muruchat/css'));
+app.use('/static', express.static('/muruchat/js'));
+//app.use('/static', express.static(__dirname + 'css'));
+//app.use('/static', express.static(__dirname + 'js'));
 
 app.get('/', (req, res) => {
     res.redirect('/muruchat');
