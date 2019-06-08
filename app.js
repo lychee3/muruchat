@@ -24,6 +24,8 @@ io.on('connection', (socket) => {
         socket_id: socket.id
     });
 
+    console.log('aaaa');
+
     // ログインユーザに追加
     socket.on('onConnect', (data) => {
         console.log('onConnect called')
