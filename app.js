@@ -15,6 +15,74 @@ app.get('/muruchat/' , (req, res) => {
     res.sendFile(__dirname+'/index.html');
 });
 
+// ログインユーザ管理用
+var login_users = {};
+
+io.sockets.on('connection', (socket) => {
+
+    console.log('接続:' + socket.id);
+
+    // 接続時にソケットIDをサーバからクライアントへ送る
+    io.to(socket.id).emit('onConnect', {
+        socket_id: socket.id
+    });
+
+    // ログインユーザに追加
+    socket.on('onConnect', (data) => {
+        login_users[data.socket_id] = data.login_name;
+        console.log(login_users);
+    });
+
+    // チャットメッセージの同期
+    socket.on('say', function (data) {
+        io.sockets.emit('say', {
+            socket_id: socket.id,
+            login_name: data.login_name,
+            chat_message: data.chat_message
+        });
+    });
+
+    // 他ユーザがログインしたときにメッセージとして通知
+    socket.on('join', function (data) {
+        socket.broadcast.emit('join', {
+            socket_id: socket.id,
+            login_name: data.login_name
+        });
+    });
+
+    // 他ユーザの入力中のときにステータスとして通知
+    socket.on('keydown', function (data) {
+        socket.broadcast.emit('keydown', {
+            socket_id: socket.id,
+            login_name: data.login_name
+        });
+    });
+    socket.on('keyup', function (data) {
+        socket.broadcast.emit('keyup', {});
+    });
+
+    // 切断したときにメッセージとして通知
+    socket.on('disconnect', function () {
+        var key = socket.id.slice(2);
+
+        socket.broadcast.emit('logout', {
+            socket_id: socket.id,
+            login_name: login_users[key]
+        });
+        // ログインユーザから削除
+        console.log(key);
+        delete login_users[key];
+        console.log(login_users);
+    });
+});
+
+
+
+/*
+
+
+
+
 io.on('connection', (socket) => {
     const address = socket.handshake.headers["x-forwarded-for"].split(",")[0];
     socket.on('message',(msg) => {
@@ -29,7 +97,8 @@ io.on('connection', (socket) => {
 http.listen(PORT, () => {
     console.log('server listening. Port:' + PORT);
 });
-
+*/
+/*
 function insertMessage(msg) {
     let conn;
 
@@ -57,4 +126,4 @@ function insertMessage(msg) {
         console.log(error);
     });
     
-}
+}*/
