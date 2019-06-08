@@ -20,24 +20,28 @@ io.on('connection', (socket) => {
     console.log('接続:' + socket.id);
 
     // 接続時にソケットIDをサーバからクライアントへ送る
-    io.to(socket.id).emit('onConnect', {
+    socket.emit('onConnect', {
         socket_id: socket.id
     });
+});
 
-    // ログインユーザに追加
-    socket.on('onConnect', (data) => {
-        login_users[data.socket_id] = data.login_name;
-        console.log(login_users);
-    });
 
-    // チャットメッセージの同期
-    socket.on('say', function (data) {
-        io.emit('say', {
-            socket_id: socket.id,
-            login_name: data.login_name,
-            chat_message: data.chat_message
-        });
+// ログインユーザに追加
+io.on('onConnect', (data) => {
+    console.log('onConnect called')
+    login_users[data.socket_id] = data.login_name;
+    console.log(login_users);
+});
+
+// チャットメッセージの同期
+io.on('say', function (data) {
+    console.log('say called');
+    io.emit('say', {
+        socket_id: socket.id,
+        login_name: data.login_name,
+        chat_message: data.chat_message
     });
+});
 
 });
 
