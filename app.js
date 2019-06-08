@@ -6,11 +6,7 @@ const io = require('socket.io')(http, {path: '/muruchat/socket.io'});
 const PORT = process.env.PORT || 8080;
 
 app.use('/muruchat', express.static('public'));
-app.use(expressStatusMonitor({
-    websocket: io,
-    port: app.get('port')
-  }));
-  
+
 app.get('/', (req, res) => {
     res.redirect('/muruchat');
 });
