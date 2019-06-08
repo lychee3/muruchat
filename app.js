@@ -16,6 +16,17 @@ app.get('/muruchat/' , (req, res) => {
 });
 
 io.on('connection', (socket) => {
+
+    console.log('接続:' + socket.id);
+
+    // 接続時にソケットIDをサーバからクライアントへ送る
+    io.to(socket.id).emit('onConnect', {
+        socket_id: socket.id
+    });
+});
+
+/*
+io.on('connection', (socket) => {
     const address = socket.handshake.headers["x-forwarded-for"].split(",")[0];
     socket.on('message',(msg) => {
         console.log('message: ' + msg);
@@ -25,6 +36,7 @@ io.on('connection', (socket) => {
         io.emit('message', msg + '(' + address + ')');
     });
 });
+*/
 
 http.listen(PORT, () => {
     console.log('server listening. Port:' + PORT);
