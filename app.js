@@ -20,7 +20,7 @@ io.on('connection', (socket) => {
     console.log('接続:' + socket.id);
 
     // 接続時にソケットIDをサーバからクライアントへ送る
-    socket.emit('onConnect', {
+    io.to(socket.id).emit('onConnect', {
         socket_id: socket.id
     });
 
