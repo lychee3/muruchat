@@ -42,6 +42,41 @@ io.on('connection', (socket) => {
             chat_message: data.chat_message
         });
     });
+
+    // 他ユーザがログインしたときにメッセージとして通知
+    socket.on('join', function (data) {
+        socket.broadcast.emit('join', {
+            socket_id: socket.id,
+            login_name: data.login_name
+        });
+    });
+
+    // 他ユーザの入力中のときにステータスとして通知
+    socket.on('keydown', function (data) {
+        socket.broadcast.emit('keydown', {
+            socket_id: socket.id,
+            login_name: data.login_name
+        });
+    });
+    socket.on('keyup', function (data) {
+        socket.broadcast.emit('keyup', {});
+    });
+
+    // 切断したときにメッセージとして通知
+    socket.on('disconnect', function () {
+        var key = socket.id.slice(2);
+
+        socket.broadcast.emit('logout', {
+            socket_id: socket.id,
+            login_name: login_users[key]
+        });
+        // ログインユーザから削除
+        console.log(key);
+        delete login_users[key];
+        console.log(login_users);
+    });
+
+
 });
 
 
