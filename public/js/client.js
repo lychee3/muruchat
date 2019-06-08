@@ -72,6 +72,7 @@ function initSocket() {
         // 自分のソケットIDを記憶
         console.log('onConnect called');
         my_socket_id = data.socket_id;
+        console.log('my_socket_id : ' + my_socket_id);
 
         // ログインIDとソケットIDを紐付け
         socket.emit('onConnect', {
