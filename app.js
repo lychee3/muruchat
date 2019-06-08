@@ -23,6 +23,22 @@ io.on('connection', (socket) => {
     io.to(socket.id).emit('onConnect', {
         socket_id: socket.id
     });
+
+    // ログインユーザに追加
+    socket.on('onConnect', (data) => {
+        login_users[data.socket_id] = data.login_name;
+        console.log(login_users);
+    });
+
+    // チャットメッセージの同期
+    socket.on('say', function (data) {
+        io.emit('say', {
+            socket_id: socket.id,
+            login_name: data.login_name,
+            chat_message: data.chat_message
+        });
+    });
+
 });
 
 /*
