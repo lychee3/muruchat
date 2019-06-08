@@ -43,7 +43,6 @@ io.on('say', function (data) {
     });
 });
 
-});
 
 /*
 io.on('connection', (socket) => {
