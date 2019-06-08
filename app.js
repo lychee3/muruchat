@@ -15,9 +15,25 @@ app.get('/muruchat/' , (req, res) => {
     res.sendFile(__dirname+'/index.html');
 });
 
+io.on('connection', (socket) => {
+    const address = socket.handshake.headers["x-forwarded-for"].split(",")[0];
+    socket.on('message',(msg) => {
+        console.log('message: ' + msg);
+//        insertMessage(msg + '(' + address + ')');
+        console.log('DB pushed');
+
+        io.emit('message', msg + '(' + address + ')');
+    });
+});
+
+http.listen(PORT, () => {
+    console.log('server listening. Port:' + PORT);
+});
+
+
 // ログインユーザ管理用
 var login_users = {};
-
+/*
 io.sockets.on('connection', (socket) => {
 
     console.log('接続:' + socket.id);
@@ -75,7 +91,7 @@ io.sockets.on('connection', (socket) => {
         console.log(login_users);
     });
 });
-
+*/
 
 
 /*
