@@ -75,11 +75,13 @@ function initSocket() {
         console.log('my_socket_id : ' + my_socket_id);
         console.log('my_login_name : ' + my_login_name);
 
+        /*
         // ログインIDとソケットIDを紐付け
         socket.emit('onConnect', {
             socket_id: socket.id,
             login_name: my_login_name
         });
+        */
     });
 
     // チャットメッセージの同期
