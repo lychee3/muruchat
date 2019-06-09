@@ -66,7 +66,7 @@ function initSocket() {
     var socket = io({path: '/muruchat/socket.io'});
 
     console.log('######');
-      
+/*      
     // 接続時にソケットIDをサーバから取得する
     socket.on('onConnect', (data) => {
         // 自分のソケットIDを記憶
@@ -74,7 +74,7 @@ function initSocket() {
         my_socket_id = data.socket_id;
         console.log('my_socket_id : ' + my_socket_id);
         console.log('my_login_name : ' + my_login_name);
-
+*/
         /*
         // ログインIDとソケットIDを紐付け
         socket.emit('onConnect', {
