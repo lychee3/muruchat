@@ -82,7 +82,7 @@ function initSocket() {
             login_name: my_login_name
         });
         */
-    });
+//    });
 
     // チャットメッセージの同期
     socket.on('say', function (data) {
