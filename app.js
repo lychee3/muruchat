@@ -25,7 +25,7 @@ io.on('connection', (socket) => {
     });
 
     console.log('aaaa');
-
+/*
     // ログインユーザに追加
     socket.on('onConnect', (data) => {
         console.log('onConnect called')
@@ -75,7 +75,7 @@ io.on('connection', (socket) => {
         delete login_users[key];
         console.log(login_users);
     });
-
+*/
 
 });
 
