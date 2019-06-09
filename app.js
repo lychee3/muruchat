@@ -15,7 +15,6 @@ app.get('/muruchat/' , (req, res) => {
     res.sendFile(__dirname+'/index.html');
 });
 
-/*
 io.on('connection', (socket) => {
 
     console.log('接続:' + socket.id);
@@ -26,8 +25,7 @@ io.on('connection', (socket) => {
     });
 
     console.log('aaaa');
-*/    
-/*
+    
     // ログインユーザに追加
     socket.on('onConnect', (data) => {
         console.log('onConnect called')
@@ -68,6 +66,8 @@ io.on('connection', (socket) => {
     socket.on('disconnect', function () {
         var key = socket.id.slice(2);
 
+        console.log('socket.id : ' + socket.id);
+
         socket.broadcast.emit('logout', {
             socket_id: socket.id,
             login_name: login_users[key]
@@ -77,14 +77,12 @@ io.on('connection', (socket) => {
         delete login_users[key];
         console.log(login_users);
     });
-*/
-
-//});
+});
 
 
 
 
-
+/*
 io.on('connection', (socket) => {
     const address = socket.handshake.headers["x-forwarded-for"].split(",")[0];
     socket.on('message',(msg) => {
@@ -95,7 +93,7 @@ io.on('connection', (socket) => {
         io.emit('message', msg + '(' + address + ')');
     });
 });
-
+*/
 
 http.listen(PORT, () => {
     console.log('server listening. Port:' + PORT);
