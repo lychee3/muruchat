@@ -63,12 +63,12 @@ function appendChat(message, position, login_name) {
 
 // ソケット初期化
 function initSocket() {
-    var socket = io({path: '/muruchat/socket.io'});
+    socket = io({path: '/muruchat/socket.io'});
 
     console.log('######');
 
     // 接続時にソケットIDをサーバから取得する
-    socket.on('onConnect', (data) => {
+    socket.on('onConnect', function (data) {
         // 自分のソケットIDを記憶
         console.log('onConnect called');
         my_socket_id = data.socket_id;
